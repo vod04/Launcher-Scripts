@@ -26,5 +26,4 @@ LauncherPlayStoppedPenaltyAway = 9
 LauncherPlayStoppedNetLoose = 10
 LauncherPlayStoppedGameOver = 11
 LauncherPlayStoppedFight = 12
-
-
+LauncherPlayStoppedTwoLinePass = 13

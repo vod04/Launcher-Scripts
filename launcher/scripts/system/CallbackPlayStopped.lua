@@ -26,6 +26,7 @@ AwayGoals = 0
 function PlayStopped()
     local LauncherReason, Team, Reason
     Reason = Launcher.Mem.Long(ReasonAddress)
+    --Launcher.Log.Write("Play stopped reason "..Reason)
     LauncherReason = 0
     if Reason == 3 then
       if Launcher.Game.Over() then
@@ -41,6 +42,8 @@ function PlayStopped()
         LauncherReason = LauncherPlayStoppedIcing
     elseif Reason == 7 then
         LauncherReason = LauncherPlayStoppedOffside
+    elseif Reason == 8 then
+        LauncherReason = LauncherPlayStoppedTwoLinePass
     elseif Reason == 9 then
         if Launcher.Stats.HomeGoals() ~= HomeGoals then
             HomeGoals = Launcher.Stats.HomeGoals()
