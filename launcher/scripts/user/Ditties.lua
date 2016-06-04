@@ -30,6 +30,7 @@
     Offside (Or Play Stopped if doesn't exist)
     Icing (Or Play Stopped if doesn't exist)
     Net Loose (Or Play Stopped if doesn't exist)
+    Two Line Pass (Or Play Stopped if doesn't exist)
     Penalty Home
     Penalty Away
     Home Win
@@ -227,6 +228,7 @@ function Preload(Event)
     PreloadEvent("Tie")
     PreloadEvent("Fight")
     PreloadEvent("Period Started")
+    PreloadEvent("Two Line Pass")
 end
 function DeviceCreatedCallback()
     InterfaceTimer = nil
@@ -300,6 +302,11 @@ function PlayStoppedCallback(Reason)
         end
     elseif Reason == LauncherPlayStoppedNetLoose then
 		Song = PickSong("Net Loose")
+        if Song == nil then
+            Song = PickSong("Play Stopped")
+        end
+    elseif Reason == LauncherPlayStoppedTwoLinePass then
+		Song = PickSong("Two Line Pass")
         if Song == nil then
             Song = PickSong("Play Stopped")
         end
