@@ -44,6 +44,7 @@ function DeviceCreatedCallback()
 	Text = ""
 	FPSFont = Launcher.Font.Load(FontFamily,FontSize,FontWeight)
 	BGSprite = Launcher.Sprite.Load("launcher\\media\\textures\\BlackBG.png")
+    FrameTimer = Launcher.System.Time() + 1000	
 	if BGSprite ~= nil then
 		Launcher.Callback.Register("Render",RenderCallback)
 	end
