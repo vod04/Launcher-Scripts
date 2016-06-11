@@ -23,7 +23,7 @@ ASM = [[
 ]]
 if Launcher.Callback.Create("PeriodStarted") ~= nil then
     ASMPointer = Launcher.Mem.AssembleString(ASM)
-    if ASMPointeer ~= nil then
+    if ASMPointer ~= nil then
         Launcher.Mem.WriteCall(0x4a57f5,ASMPointer)
     end
 end

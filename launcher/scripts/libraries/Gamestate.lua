@@ -307,11 +307,7 @@ Launcher.Game.SetLastMinuteTimer = function(Timer)
     if Timer == nil then
         return 0
     elseif Timer == 0 then
-        ASM = [[
-            jmp 0x4A181F
-            nop
-        ]]
-        Launcher.Mem.WriteASM(0x4a1809,ASM)
+        Launcher.Mem.WriteByte(0x4a180b,99)
         return 1
     else
         Launcher.Mem.WriteLong(0x4a1819,Timer+1)
