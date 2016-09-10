@@ -46,7 +46,7 @@ Launcher.Game.FightsPerGame = function ()
 end
 
 Launcher.Game.InCutscene = function ()
-	if Launcher.Mem.Byte(0x776C10) == 1 then
+    if Launcher.Mem.Byte(0x7BC958) ~= -1 then
 		return true
 	else
 		return false
@@ -350,4 +350,10 @@ Launcher.Game.SetPoints = function(PointsWin, PointsTie,PointsLoseOT, PointsWinO
       Launcher.Mem.WriteLong(0x774A78,PointsTie)
       Launcher.Mem.WriteLong(0x774A7C,PointsLoseOT)
       Launcher.Mem.WriteLong(0x774A80,PointsWinOT)
+end
+Launcher.Game.GetLanguage = function()
+    return Launcher.Mem.Byte(0x78d348)
+end
+Launcher.Game.SetLanguage = function(LanguageID)
+    Launcher.Mem.WriteByte(0x78d348,LanguageID)
 end

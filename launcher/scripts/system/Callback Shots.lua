@@ -13,28 +13,29 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-
+ReturnAddress = Launcher.Mem.Alloc(4)
 ASM = [[ 
-    inc word [eax]
-    cmp eax,0x7A95D8
+    pop eax
+    mov []]..ReturnAddress..[[],eax
+    mov eax,0x4B52C0
+    call eax
+    movsx ebx, byte [0x79BAF8]
+    cmp ebx,0
     je home
-    cmp eax,0x7A9634
-    je away
-    jmp finished
-    away:
-        *ShotAway
-        jmp finished
+    *ShotAway
+    jmp finish
     home:
         *ShotHome
-    finished:
-        mov eax,[esi+04]
+    finish:
+        mov eax, []]..ReturnAddress..[[] 
+        push eax
         ret
 ]]
 if Launcher.Callback.Create("ShotHome") ~= nil then
     if Launcher.Callback.Create("ShotAway") ~= nil then
         ASMPointer = Launcher.Mem.AssembleString(ASM)
         if ASMPointer ~= nil then
-            Launcher.Mem.WriteCall(0x4d4680,ASMPointer,1)
+            Launcher.Mem.WriteCall(0x4b6574,ASMPointer,0)
         end
     end
 end

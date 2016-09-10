@@ -13,6 +13,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
+
 <options>
 	<Display>
 		<list name="resolution" title="Resolution" description="Set the in-game resolution"></list>
@@ -21,6 +23,7 @@
 			<listitem value="2">Full Screen Window</listitem>
 			<listitem value="3">Windowed</listitem>
 		</list>
+        <boolean name="interfaceresolution" title="Interface Resolution" description="Set the interface resolution to the screen resolution? (Requires interface support)" default="0"></boolean>
 		<boolean name="vsync" title="V-Sync" description="Enable vertical synchronization (removes tearing)" default="0"></boolean>
 		<boolean name="triplebuffering" title="Triple Buffering" description="Enable triple buffering" default="0"></boolean>
 		<list name="antialiasing" title="Antialiasing" description="Smooths edges of objects" default="0">
@@ -40,7 +43,7 @@
 		<input name="fov" title="FOV Modifier" description="Field of view modifier. Effectively zooms the camera." type="number" default="0" />
 		<input name="cutscenefovmin" title="Min Cutscene FOV Modifier" description="Sets the minimum FOV modifier for cutscenes" default="0"></input>
         <input name="cutscenefovmax" title="Max Cutscene FOV Modifier" description="Sets the maximum FOV modifier for cutscenes" default="0"></input>
-        
+        <boolean name="animatedupperads" title="Animated Upper Ads" description="Toggle animated upper ads" default="1"></boolean>
 		<boolean name="drawfps" title="Draw FPS" description="Draw the frames per second" default="0"></boolean>
 		<list name="fpsprecision" title="FPS Precision" description="Low precision uses millisecond timing. High precision uses nanosecond timing (slower). " default="0">
 			<listitem value="1">Low</listitem>
@@ -59,7 +62,7 @@
 		<boolean name="wireframe" title="Wireframe" description="Draw only the edges of primitives" default="0"></boolean>
 	</Display>
 	<Game>
-        <boolean name="enableditties" title="Ditty Engine" description="Enable or disable the ditty engine script" default="1"></boolean>
+        <boolean name="enableditties" title="Ditty Engine" description="Toggle the ditty engine script" default="1"></boolean>
         <input name="penaltytimer" type="number"  title="Penalty Time" description="Period time in minutes during penalties. 0 = No Change, Default 20" default="20"></input>
         <input name="ottimer" type="number" title="OT Time" description="Period time in minutes during OT. 0 = No Change, Default 20" default="20"></input>
         <input name="lastmintimer" type="number" title="Last minute timer" description="Last minute time in seconds during third period and OT. 0 = No Change, Default 60" default="60"></input>

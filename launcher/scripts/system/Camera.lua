@@ -33,11 +33,11 @@ ASM = [[
     mov edx,[esp+0x10]
     mov [ecx+0x120],eax
     fld dword [esp+0x04]
-    fadd dword [0x]]..string.format("%x", FOVAddress)..[[]
-    fstp dword [0x]]..string.format("%x", FinalFOVAddress)..[[]
-    mov eax, dword [0x]]..string.format("%x", FinalFOVAddress)..[[]
+    fadd dword []]..FOVAddress..[[]
+    fstp dword []]..FinalFOVAddress..[[]
+    mov eax, dword []]..FinalFOVAddress..[[]
     mov [ecx+0x124],edx
-    mov edx,dword [0x]]..string.format("%x", AspectAddress)..[[]
+    mov edx,dword []]..AspectAddress..[[]
     mov [ecx+0x128],eax
     mov [ecx+0x12C],edx
     mov byte [ecx+0x0C],01

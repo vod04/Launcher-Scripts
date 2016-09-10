@@ -23,12 +23,25 @@ FontWeight = 600
 Render = false
 Text = ""
 Padding2 = Padding * 2
+
+SpeedLocaleAddress = Launcher.Mem.Alloc(4)
+Launcher.Mem.WriteLong(0x4B536F,SpeedLocaleAddress) -- This makes the game use our own setting instead of the language setting for MPH/KPH decision
+
 function DeviceCreatedCallback()
-	BGSprite = Launcher.Sprite.Load("launcher\\media\\textures\\BlackBG.png")	
+	BGSprite = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\BlackBG.png")	
 	ShotFont = Launcher.Font.Load(FontFamily,FontSize, FontWeight)
 	if BGSprite ~= nil then
 		Launcher.Callback.Register("Render",RenderCallback)
+        Launcher.Callback.Register("LoadingComplete",LoadingCompleteCallback)
 	end
+end
+function LoadingCompleteCallback()
+    if Launcher.Game.HomeLeague() ~= 0 then -- Set the MPH / KPH based on the home league
+        Launcher.Mem.WriteByte(SpeedLocaleAddress,1) 
+    else
+        Launcher.Mem.WriteByte(SpeedLocaleAddress,0)
+    end
+	Launcher.Game.SetPuckGravity(Launcher.Config.Number("puckgravity",2.5))
 end
 function Timeout()
 	Render = false

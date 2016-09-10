@@ -116,8 +116,21 @@ D3DRS_POSITIONORDER             = 172   -- NPatch position interpolation order. 
 D3DRS_NORMALORDER               = 173   -- NPatch normal interpolation order. D3DORDER_LINEAR (default) or D3DORDER_QUADRATIC
 
 function ARGB(A, R, G, B)
-	return bit32.bor(bit32.lshift(bit32.band(A,0xFF),24) , bit32.lshift(bit32.band(R,0xFF),16) , bit32.lshift(bit32.band(G , 0xFF),8) , bit32.band(B , 0xFF))
+	return bit32.bor(bit32.lshift(bit32.band(math.floor(A),0xFF),24) , bit32.lshift(bit32.band(math.floor(R),0xFF),16) , bit32.lshift(bit32.band(math.floor(G) , 0xFF),8) , bit32.band(math.floor(B) , 0xFF))
 end
 function RGBA(R, G, B, A)
 	return ARGB(A, R, G, B)
+end
+
+function Alpha(Color)
+    return bit32.band(bit32.rshift(Color,24),0xFF);
+end
+function Red(Color)
+    return bit32.band(bit32.rshift(Color,16),0xFF);
+end
+function Green(Color)
+    return bit32.band(bit32.rshift(Color,8),0xFF);
+end
+function Blue(Color)
+    return bit32.band(Color,0xFF);
 end

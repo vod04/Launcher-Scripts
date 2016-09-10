@@ -21,7 +21,8 @@ Launcher.Replay.Frame = function ()
 	return Launcher.Mem.Short(0x7CC7EC)
 end
 Launcher.Replay.TotalFrames = function ()
-	return Launcher.Mem.Short(0x7cc7f0)
+	local Pointer = Launcher.Mem.Long(0x7cc7b0)
+    return Launcher.Mem.Short(Pointer+0x0c)
 end
 Launcher.Replay.Time = function ()
 	return Launcher.Mem.Short(0x79BF4C)

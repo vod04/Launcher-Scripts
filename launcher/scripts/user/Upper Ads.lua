@@ -16,50 +16,210 @@
 
 Frame = 0
 FrameTimer = 0
-Teams = {}
-Teams[6] = {}
-Teams[6].Frames = 16
-Teams[6].AnimationFPS = 3
-Teams[6].Texture = {}
-Teams[6].CRC = {}
-Teams[6].CRC[0] = 1880723064
-Teams[6].CRC[1] = 1806384399
-Teams[6].CRC[2] = 1659566488
-Teams[6].CRC[3] = 1130882918
 
+CurrentTeam = {}
+CurrentTeam.CRC = {}
+
+OldFrames = 0
+PreviousFrame = 0
+
+function DefaultGoalHome(Frame)
+    local Text, TextWidth, TextHeight, Alpha, F
+    Launcher.Screen.SetRenderTarget(1,RenderSprite)
+    if Launcher.Screen.BeginScene() then
+        Text = "GOAL!"
+        F = (Frame * 10) % 200
+        if F <= 100 then
+            Alpha = F / 100
+        else
+            Alpha = 1-(F-100) / 100
+        end
+        TextWidth = Launcher.Font.TextWidth(CurrentTeam.LargeFont,Text)
+        TextHeight = Launcher.Font.TextHeight(CurrentTeam.LargeFont,Text)
+        Launcher.Sprite.Draw(CurrentTeam.BGSprite3,0, 0 , 0, CurrentTeam.Color)
+        Launcher.Font.DrawText(CurrentTeam.LargeFont, Text, CurrentTeam.Width/2-TextWidth/2, CurrentTeam.Height/2-TextHeight/2, RGBA(255,255,255,255*Alpha))
+        Launcher.Screen.EndScene()
+    end
+end
+function DefaultGeneric(Frame)
+    local X, I, Y, BGAlpha, BGColor1, BGColor2, Color, Cols
+    Launcher.Screen.SetRenderTarget(1,RenderSprite)
+    if Launcher.Screen.BeginScene() then
+        if CurrentTeam.Mode == 0 then -- Large logo drop
+  
+            
+            BGColor1 = RGBA(Red(CurrentTeam.Color),Green(CurrentTeam.Color),Blue(CurrentTeam.Color),255)
+
+            Launcher.Sprite.Draw(CurrentTeam.BGSprite1,0,0,0,BGColor1)
+
+            Color = RGBA(255,255,255,100)
+            Cols = CurrentTeam.Width/64
+            for I = 0, Cols do
+                X = (I * 64) + (Frame * 2) % CurrentTeam.Width
+                Y = (Frame * 2) % CurrentTeam.Height
+                Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X,Y, 0, Color)
+                if X + 64  > CurrentTeam.Width then
+                    Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X-CurrentTeam.Width,Y, 0, Color)
+                    if Y > 0 then
+                        Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X-CurrentTeam.Width,Y-CurrentTeam.Height, 0, Color)
+                    end
+                elseif Y + 64 >= CurrentTeam.Height then
+                    Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X,Y-CurrentTeam.Height, 0, Color)
+                end
+                
+
+            end
+            Y = (Frame*8) % 256
+            if Y > 0 then
+                Launcher.Sprite.Draw(CurrentTeam.LogoSprite256,0,Y-256,0,RGBA(255,255,255,200))
+            end
+            Launcher.Sprite.Draw(CurrentTeam.LogoSprite256,0,Y,0,RGBA(255,255,255,200))
+        elseif CurrentTeam.Mode == 1 then -- Right scrolling 64x64 logo
+            Cols = CurrentTeam.Width/64
+            Launcher.Sprite.Draw(CurrentTeam.BGSprite3,0, 0 , 0, CurrentTeam.Color)
+            for I = 0, Cols do
+                X = (I * 64) + (Frame * 6) % CurrentTeam.Width  
+                Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X, 0 , 0, RGBA(255,255,255,255))
+                if X + 64  > CurrentTeam.Width then
+                    Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X-CurrentTeam.Width,0, 0, RGBA(255,255,255,255))
+                end
+            end
+        elseif CurrentTeam.Mode == 2 then  -- Left scrolling 64x64 logo
+            Cols = CurrentTeam.Width/64
+            Launcher.Sprite.Draw(CurrentTeam.BGSprite3,0, 0 , 0, CurrentTeam.Color)
+            for I = 0, Cols do
+                X = (I * 64) - (Frame * 6) % CurrentTeam.Width
+                Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X, 0 , 0, RGBA(255,255,255,255))
+                if X < 0 then
+                    Launcher.Sprite.Draw(CurrentTeam.LogoSprite64,X+CurrentTeam.Width,0, 0, RGBA(255,255,255,255))
+                end
+            end
+        end
+        Launcher.Screen.EndScene()
+        CurrentTeam.Mode = math.floor((Frame/CurrentTeam["Generic"].ModeChangeFrequency) % (CurrentTeam["Generic"].Modes))
+    end
+end
+function Update(Frame)
+    if CurrentTeam[CurrentEvent].Update ~= nil then
+        ThisEvent = CurrentEvent
+        CurrentTeam[CurrentEvent].Update(Frame)
+    
+        Launcher.Screen.SetRenderTarget(0,RenderTexture)
+        if Launcher.Screen.BeginScene() then
+            Launcher.Sprite.Draw(RenderSprite,0,0)
+            Launcher.Sprite.Draw(RenderSprite,0,CurrentTeam.Height)      
+            Launcher.Screen.EndScene()
+        end
+
+        Launcher.Screen.ResetRenderTarget()
+    end
+end
 function DeviceCreatedCallback()
-	Team = Launcher.Game.HomeTeamID()
+    local Count,Path, I
+	HomeTeam = Launcher.Game.HomeTeamID()
     HomeAbbreviation = Launcher.Game.HomeNameAbbreviation()
-	Frame = 0
-	if Teams[Team] ~= nil then
-		for I = 0,Teams[Team].Frames-1 do
-			Teams[Team].Texture[I] = Launcher.Texture.Load("launcher\\media\\textures\\upper ads\\"..HomeAbbreviation.."\\"..(I)..".png")
-		end
-		Frame = 0
-		for I = 0, #Teams[Team].CRC do
-			Launcher.Texture.Inject(Teams[Team].Texture[Frame],0,Teams[Team].CRC[I])
-		end
-		FrameTimer = Launcher.System.Time() + 60
-		Launcher.Callback.Register("Tick",TickCallback)
-	end
+   
+
+    Count = #CurrentTeam.CRC
+    if Count > 0 then
+        for I=0, Count do CurrentTeam.CRC[I]=nil end
+    end
+
+    CurrentTeam.LogoSprite64 = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\logos\\"..HomeAbbreviation.."-64.png",0)
+    if CurrentTeam.LogoSprite64 == nil then
+        return false
+    end
+
+    CurrentTeam.LogoSprite256 = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\logos\\"..HomeAbbreviation.."-256.png",0)
+    if CurrentTeam.LogoSprite256 == nil then
+        return false
+    end
+    CurrentTeam.LargeFont = Launcher.Font.Load("Lucida Sans",58,600)
+    CurrentTeam.Mode = 0
+    CurrentTeam.BGSprite1 = nil
+    CurrentTeam.BGSprite2 = nil
+    CurrentTeam.BGSprite3 = nil
+    
+    Path = "launcher\\scripts\\modules\\upper ads\\"..HomeAbbreviation..".lua"
+    
+    if Launcher.Filesystem.FileExists(Path) then
+        dofile(Path)
+        CurrentTeam.Height2 = CurrentTeam.Height*2        
+    else
+        return false
+    end
+    
+    if CurrentTeam.BGSprite1 == nil then
+        CurrentTeam.BGSprite1 = Launcher.Sprite.Load("launcher\\media\\textures\\upper ads\\bg1.png",0)
+    end
+    if CurrentTeam.BGSprite2 == nil then
+        CurrentTeam.BGSprite2 = Launcher.Sprite.Load("launcher\\media\\textures\\upper ads\\bg2.png",0)
+    end
+    if CurrentTeam.BGSprite3 == nil then
+        CurrentTeam.BGSprite3 = Launcher.Sprite.Load("launcher\\media\\textures\\upper ads\\bg3.png",0)
+    end
+    
+    RenderTexture = Launcher.Texture.Create(CurrentTeam.Width, CurrentTeam.Height2,1)
+    RenderSprite = Launcher.Sprite.Create(CurrentTeam.Width, CurrentTeam.Height,1)
+    
+    --Update(0)
+    Frame = 0
+    Count = #CurrentTeam.CRC
+    for I = 0, Count do
+        Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
+    end
+
+
+    FPSTimer = Launcher.System.Time(2)
+    Launcher.Callback.Register("Tick",TickCallback)
+    
+    
 end
 function TickCallback()
-    if Launcher.Game.InReplay() then
-        Frame = math.floor(Launcher.Replay.Frame() / (5 / Teams[Team].AnimationFPS)) % Teams[Team].Frames
-        for I = 0, #Teams[Team].CRC do
-            Launcher.Texture.Inject(Teams[Team].Texture[Frame],0,Teams[Team].CRC[I])
-        end
-    elseif Launcher.Game.InCutscene() then
+    local I, Count, Time, Delta, Multi, Ratio
+    if Launcher.Game.AwaySiren() then
+        CurrentEvent = "Goal Home"
+    else
+        CurrentEvent = "Generic"
+    end
+    if Launcher.Game.InCutscene() then
         if not Launcher.Game.Paused() then
-            if Launcher.System.Time() >= FrameTimer then
-                Frame = Frame + 1
-                if Frame >= Teams[Team].Frames then
-                    Frame = 0
+        
+        
+        	Time = Launcher.System.Time(2)
+			Delta = (Time - FPSTimer) / 1000000
+			FPSTimer = Time
+			Multi = CurrentTeam[CurrentEvent].AnimationFPS * Delta
+			Frame = Frame + 1*Multi
+            
+            DisplayFrame = math.floor(Frame)
+            if DisplayFrame ~= PreviousFrame then 
+            
+              
+                PreviousFrame = DisplayFrame
+                Update(DisplayFrame)
+                Count = #CurrentTeam.CRC
+                for I = 0, Count do
+                    Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
                 end
-                for I = 0, #Teams[Team].CRC do
-                    Launcher.Texture.Inject(Teams[Team].Texture[Frame],0,Teams[Team].CRC[I])
-                end
-                FrameTimer = Launcher.System.Time() + 60
+            end
+
+        end
+    elseif Launcher.Game.InReplay() then
+        if Launcher.System.Time() >= FrameTimer then
+            FrameTimer = Launcher.System.Time() + 1000
+            Frames = Launcher.Replay.Frame()
+            FrameRate = Frames - OldFrames
+            OldFrames = Frames
+        end
+        Ratio = 30/CurrentTeam[CurrentEvent].AnimationFPS
+        DisplayFrame = math.floor(Launcher.Replay.Frame() / Ratio) --% CurrentTeam[CurrentEvent].Frames
+        if DisplayFrame ~= PreviousFrame then
+            PreviousFrame = DisplayFrame
+            Update(DisplayFrame)
+            Count = #CurrentTeam.CRC
+            for I = 0, Count do
+                Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
             end
         end
     end
@@ -68,6 +228,7 @@ function DeviceReleasedCallback()
 	Launcher.Callback.Remove("Tick")
 end
 
-
-Launcher.Callback.Register("DeviceCreated",DeviceCreatedCallback)
-Launcher.Callback.Register("DeviceReleased",DeviceReleasedCallback)
+if Launcher.Config.Bool("animatedupperads",true) then
+    Launcher.Callback.Register("DeviceCreated",DeviceCreatedCallback)
+    Launcher.Callback.Register("DeviceReleased",DeviceReleasedCallback)
+end

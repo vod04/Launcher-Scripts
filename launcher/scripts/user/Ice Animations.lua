@@ -14,7 +14,6 @@
 --]]
 
 
-IceSprite = 0
 IceTexture = 0
 IceDarkSprite = 0
 LogoBWSprite = 0
@@ -162,7 +161,10 @@ function DeviceReleasedCallback()
 		AniTimer = nil
 	end
 end
-
+function DeviceRecoveredCallback()
+    Launcher.Timer.SetTimeout(100,Timer)
+end
 
 Launcher.Callback.Register("DeviceReleased",DeviceReleasedCallback)
+Launcher.Callback.Register("DeviceRecovered",DeviceRecoveredCallback)
 Launcher.Callback.Register("LoadingComplete",LoadingCompleteCallback)
