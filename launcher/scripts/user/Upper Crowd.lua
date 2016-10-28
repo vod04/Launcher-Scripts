@@ -14,7 +14,7 @@
 --]]
 
 
-TextureCRC = 2070369940
+
 CrowdTexture = {}
 Frame = 0
 Frames = 9
@@ -49,10 +49,10 @@ function CrowdTimer()
             end
             if Launcher.Game.AwaySiren() then
                 Timeout = 200
-                Launcher.Texture.Inject(CrowdTexture[Frame].Goal,0,TextureCRC)
+                Launcher.Texture.Inject(CrowdTexture[Frame].Goal,"FANS")
             else
                 Timeout = 250
-                Launcher.Texture.Inject(CrowdTexture[Frame].Generic,0,TextureCRC)
+                Launcher.Texture.Inject(CrowdTexture[Frame].Generic,"FANS")
             end
         else
             Timeout = 200

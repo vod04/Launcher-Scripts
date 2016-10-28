@@ -24,7 +24,8 @@
     Menu*
     Intermission*
     Goal Home
-    Goal Away
+    Goal Road (Loaded from away team)
+    Goal Away (If 'Goal Road' from the away team does not exist)
     Play Stopped
     Puck over (Or Play Stopped if doesn't exist)
     Offside (Or Play Stopped if doesn't exist)
@@ -165,16 +166,20 @@ function QuitGameCallback()
 
 	PlayInterface()
 end
-function PreloadEvent(Event)
+function PreloadEvent(Event,Alt)
 	local Dir, Size, Path, Filename, Abbrev
    
-    
-	if HomeAbbreviation ~= nil then
-		Path = MusicPath..HomeAbbreviation.."\\".. Event.."\\"
+    Abbrev = HomeAbbreviation
+    if Alt ~= nil then
+        if Alt == 1 then
+            Abbrev = AwayAbbreviation
+        end
+    end
+	if Abbrev ~= nil then
+		Path = MusicPath..Abbrev.."\\".. Event.."\\"
 		if not Launcher.Filesystem.DirectoryExists(Path) then
 			Path = MusicPath.."ALL\\".. Event.."\\"
 		end
-        Abbrev = HomeAbbreviation
 	else
         Abbrev = "ALL"
 		Path = MusicPath.."ALL\\".. Event.."\\"
@@ -216,6 +221,7 @@ function Preload(Event)
     PreloadEvent("Intermission")
     PreloadEvent("Goal Home")
     PreloadEvent("Goal Away")
+    PreloadEvent("Goal Road",1)
     PreloadEvent("Play Stopped")
     PreloadEvent("Puck over")
     PreloadEvent("Offside")
@@ -235,6 +241,7 @@ function DeviceCreatedCallback()
     MenuTimer = nil
 	Launcher.Override.DisableMusic()
 	HomeAbbreviation = Launcher.Game.HomeNameAbbreviation()
+    AwayAbbreviation = Launcher.Game.AwayNameAbbreviation()
     if PreloadDitties then
         Preload()
     end  
@@ -282,9 +289,12 @@ function PlayStoppedCallback(Reason)
 	if Reason == LauncherPlayStoppedPeriod then
 		Song = nil
 	elseif Reason == LauncherPlayStoppedGoalHome then
-		Song = PickSong("Goal Home")
+        Song = PickSong("Goal Home")
 	elseif Reason == LauncherPlayStoppedGoalAway then
-		Song = PickSong("Goal Away")
+        Song = PickSong("Goal Road",1)
+        if Song == nil then
+            Song = PickSong("Goal Away")
+        end
 	elseif Reason == LauncherPlayStoppedPuckOver then
 		Song = PickSong("Puck Over")
         if Song == nil then
@@ -352,17 +362,21 @@ function PlaySong(Path, Reverb, Volume)
 	end
     return RetStream
 end
-function PickSong(Event)
+function PickSong(Event,Alt)
     math.randomseed(os.time())
 	local Dir, List, Size, Path, Filename, Rand, Abbrev
 
-    
-	if HomeAbbreviation ~= nil then
-		Path = MusicPath..HomeAbbreviation.."\\".. Event.."\\"
+    Abbrev = HomeAbbreviation
+    if Alt ~= nil then
+        if Alt == 1 then
+            Abbrev = AwayAbbreviation
+        end
+    end
+	if Abbrev ~= nil then
+		Path = MusicPath..Abbrev.."\\".. Event.."\\"
 		if not Launcher.Filesystem.DirectoryExists(Path) then
 			Path = MusicPath.."ALL\\".. Event.."\\"
 		end
-        Abbrev = HomeAbbreviation
 	else
 		Path = MusicPath.."ALL\\".. Event.."\\"
         Abbrev = "ALL"

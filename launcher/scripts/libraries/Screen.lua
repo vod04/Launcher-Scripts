@@ -1,5 +1,5 @@
 Launcher.Screen.DefaultRenderTargetSurface = function()
-    local Address = Launcher.Mem.Long(0x7CCD70) + 0xf8
+    local Address = Launcher.Mem.Long(0x7CCD70) + 0xf4
     return Launcher.Mem.Long(Address)
 end
 Launcher.Screen.DefaultRenderTargetStencil = function()

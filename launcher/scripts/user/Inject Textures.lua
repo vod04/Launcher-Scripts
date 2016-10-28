@@ -15,17 +15,17 @@
 
 
 function Replace(Path)
-	local Dir, Filename, CRC, Tex
+	local Dir, Filename, Name, Tex
 	Dir = Launcher.Filesystem.EnumerateFiles(Path,"*.png")
 	if Dir ~= nil then
 		while Launcher.Filesystem.EnumerateNextFile(Dir) ~= nil do
 			Filename = Launcher.Filesystem.EnumeratedFilename(Dir)
 			if Filename ~= "." and Filename ~= ".." then
-				CRC = tonumber(string.sub(Filename,1,string.len(Filename)-4))
-				if CRC ~= 0 then
+				Name = string.sub(Filename,1,string.len(Filename)-4)
+				if string.len(Name) == 4 then
 					Tex = Launcher.Texture.Load("launcher\\media\\textures\\inject\\"..Filename)
 					if Tex ~= nil then
-						Launcher.Texture.Inject(Tex,0,CRC)
+						Launcher.Texture.Inject(Tex,Name)
 					end
 				end
 			end

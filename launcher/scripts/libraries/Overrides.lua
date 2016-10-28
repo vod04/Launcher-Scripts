@@ -63,35 +63,38 @@ Launcher.Override.DisableMusic = function ()
     local Address = Launcher.Mem.Alloc(4)
     Launcher.Mem.WriteLong(Address,0)
     Launcher.Mem.WriteASM(0x41a0e3,[[
-        mov ecx,[0x]]..string.format("%x",Address)..[[]
+        mov ecx,[]]..Address..[[]
     ]])
     Launcher.Mem.WriteASM(0x415f42,[[
-       fild dword [0x]]..string.format("%x",Address)..[[]
+       fild dword []]..Address..[[]
+    ]])
+	Launcher.Mem.WriteASM(0x513C7E,[[
+        fild dword []]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x51a517,[[
-        mov ecx,[0x]]..string.format("%x",Address)..[[]
+        mov ecx,[]]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x51a6cd,[[
-        fild dword [0x]]..string.format("%x",Address)..[[]
+        fild dword []]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x51ac96,[[
-        mov ecx,[0x]]..string.format("%x",Address)..[[]
+        mov ecx,[]]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x51b1bf,[[
-        mov ecx,[0x]]..string.format("%x",Address)..[[]
+        mov ecx,[]]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x525710,[[
         xor eax, eax
         ret
     ]])
     Launcher.Mem.WriteASM(0x525c47,[[
-        fild dword [0x]]..string.format("%x",Address)..[[]
+        fild dword []]..Address..[[]
     ]])
     Launcher.Mem.WriteASM(0x525e11,[[
-        fild dword [0x]]..string.format("%x",Address)..[[]
+        fild dword []]..Address..[[]
     ]])
 	Launcher.Mem.WriteASM(0x6af8d5,[[
-        mov edx,[0x]]..string.format("%x",Address)..[[]
+        mov edx,[]]..Address..[[]
     ]])
     Launcher.Mem.WriteByte(0x70bb47,0)
     Launcher.Mem.WriteByte(0x70bb41,0)
@@ -103,4 +106,7 @@ Launcher.Override.DisableMusic = function ()
 end
 Launcher.Override.DisablePoints = function()
     Launcher.Mem.WriteASM(0x56F780,"ret")
+end
+Launcher.Override.DisableScreenshot = function()
+    Launcher.Mem.WriteASM(0x40E304,"ret")
 end

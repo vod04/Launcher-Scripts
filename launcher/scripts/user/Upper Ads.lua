@@ -18,7 +18,7 @@ Frame = 0
 FrameTimer = 0
 
 CurrentTeam = {}
-CurrentTeam.CRC = {}
+CurrentTeam.TextureName = {}
 
 OldFrames = 0
 PreviousFrame = 0
@@ -120,9 +120,9 @@ function DeviceCreatedCallback()
     HomeAbbreviation = Launcher.Game.HomeNameAbbreviation()
    
 
-    Count = #CurrentTeam.CRC
+    Count = #CurrentTeam.TextureName
     if Count > 0 then
-        for I=0, Count do CurrentTeam.CRC[I]=nil end
+        for I=0, Count do CurrentTeam.TextureName[I]=nil end
     end
 
     CurrentTeam.LogoSprite64 = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\logos\\"..HomeAbbreviation.."-64.png",0)
@@ -164,9 +164,9 @@ function DeviceCreatedCallback()
     
     --Update(0)
     Frame = 0
-    Count = #CurrentTeam.CRC
+    Count = #CurrentTeam.TextureName
     for I = 0, Count do
-        Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
+        Launcher.Texture.Inject(RenderTexture,CurrentTeam.TextureName[I])
     end
 
 
@@ -198,9 +198,9 @@ function TickCallback()
               
                 PreviousFrame = DisplayFrame
                 Update(DisplayFrame)
-                Count = #CurrentTeam.CRC
+                Count = #CurrentTeam.TextureName
                 for I = 0, Count do
-                    Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
+                    Launcher.Texture.Inject(RenderTexture,CurrentTeam.TextureName[I])
                 end
             end
 
@@ -217,9 +217,9 @@ function TickCallback()
         if DisplayFrame ~= PreviousFrame then
             PreviousFrame = DisplayFrame
             Update(DisplayFrame)
-            Count = #CurrentTeam.CRC
+            Count = #CurrentTeam.TextureName
             for I = 0, Count do
-                Launcher.Texture.Inject(RenderTexture,0,CurrentTeam.CRC[I])
+                Launcher.Texture.Inject(RenderTexture,CurrentTeam.TextureName[I])
             end
         end
     end

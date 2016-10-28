@@ -16,14 +16,39 @@
 
 
 function TickCallback()
-
-	if Launcher.Input.KeyPressed(VK_PRIOR) then
-		Launcher.Camera.SetFOVModifier(Launcher.Camera.FOVModifier()+5)
-	end
-
-	if Launcher.Input.KeyPressed(VK_NEXT) then
-		Launcher.Camera.SetFOVModifier(Launcher.Camera.FOVModifier()-5)
-	end
+    local FOV = Launcher.Camera.FOVModifier()
+    if FOV ~= TargetFOV and TargetFOV ~= nil then
+        if TargetFOV < FOV then
+            FOV = FOV - 0.2
+            if FOV < TargetFOV then
+                FOV = TargetFOV
+                TargetFOV = nil
+            end
+            Launcher.Camera.SetFOVModifier(FOV)
+        else
+            FOV = FOV + 0.2
+            if FOV > TargetFOV then
+                FOV = TargetFOV
+                TargetFOV = nil
+            end
+            Launcher.Camera.SetFOVModifier(FOV)
+        end
+    else
+        if Launcher.Input.KeyPressed(VK_PRIOR) then
+            if Launcher.Input.KeyDown(VK_SHIFT) then
+                TargetFOV = FOV+10
+            else
+                TargetFOV = FOV+5
+            end
+        end
+        if Launcher.Input.KeyPressed(VK_NEXT) then
+            if Launcher.Input.KeyDown(VK_SHIFT) then
+                TargetFOV = FOV-10
+            else
+                TargetFOV = FOV-5
+            end
+        end
+    end
 
 end
 

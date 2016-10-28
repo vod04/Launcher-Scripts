@@ -48,7 +48,16 @@ ASMPointer = Launcher.Mem.AssembleString(ASM)
 Launcher.Mem.WriteCall(0x45F875,ASMPointer)
 Launcher.Mem.WriteCall(0x5AA678,ASMPointer)
 Launcher.Mem.WriteCall(0x5D027B,ASMPointer)
-
+ASM = [[
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+]]
+Launcher.Mem.WriteASM(0x5aa64a,ASM)
 
 function TickCallback()
     local FOVMod = Launcher.Env.Number("fovmod")

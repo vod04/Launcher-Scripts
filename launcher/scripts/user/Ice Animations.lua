@@ -24,8 +24,8 @@ Light = {}
 RenderTimer = 0
 
 
-TextureCRC = {}
-TextureCRC[6] = 1491449550 -- Chicago
+
+
 TeamID = 0
 AniTimer = nil
 function AddLight(x,y)
@@ -40,7 +40,7 @@ AddLight(345,288)
 AddLight(1024,512)
 
 function Timer()
-    IceSprite = Launcher.Sprite.GetInternal(TextureCRC[TeamID])
+    IceSprite = Launcher.Sprite.GetInternal("L256")
     if IceSprite ~= nil then
         IceTexture = Launcher.Texture.Create(2048,1024,1)
         BufferSprite = Launcher.Sprite.Create(2048,1024,1)
@@ -52,7 +52,7 @@ function Timer()
             Launcher.Screen.EndScene()
         end
         Launcher.Screen.ResetRenderTarget()
-        Launcher.Texture.Inject(IceTexture,0,TextureCRC[TeamID])
+        Launcher.Texture.Inject(IceTexture,"L256")
         Launcher.Callback.Register("Tick",TickCallback)
         Launcher.Callback.Register("PlayStarted",PlayStartedCallback)
         Launcher.Callback.Register("DeviceRecovered",DeviceRecoveredCallback)
@@ -61,14 +61,12 @@ function Timer()
     end
 end
 function LoadingCompleteCallback()
-	if TextureCRC ~= nil then
-        IceSprite = nil
-		TeamID = Launcher.Game.HomeTeamID()
-        HomeAbbreviation = Launcher.Game.HomeNameAbbreviation()
-		if TextureCRC[TeamID] ~= nil then
-            Launcher.Timer.SetTimeout(100,Timer)
-		end
-	end
+    IceSprite = nil
+    TeamID = Launcher.Game.HomeTeamID()
+    HomeAbbreviation = Launcher.Game.HomeNameAbbreviation()
+    if Launcher.Filesystem.FileExists("launcher\\media\\textures\\ice animations\\"..HomeAbbreviation .."\\logobw.png") then
+        Launcher.Timer.SetTimeout(100,Timer)
+    end
 
 end
 function DeviceRecoveredCallback()
@@ -143,7 +141,7 @@ end
 function CenterTimer()
     Launcher.Callback.Remove("Tick")
 	Launcher.Screen.ResetRenderTarget()
-    Launcher.Texture.Inject(0,0,TextureCRC[TeamID])
+    Launcher.Texture.Inject(0,"L256")
 	AniTimer = nil
 end
 function PlayStartedCallback()
@@ -166,5 +164,4 @@ function DeviceRecoveredCallback()
 end
 
 Launcher.Callback.Register("DeviceReleased",DeviceReleasedCallback)
-Launcher.Callback.Register("DeviceRecovered",DeviceRecoveredCallback)
 Launcher.Callback.Register("LoadingComplete",LoadingCompleteCallback)

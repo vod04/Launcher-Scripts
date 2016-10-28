@@ -41,7 +41,6 @@ function LoadingCompleteCallback()
     else
         Launcher.Mem.WriteByte(SpeedLocaleAddress,0)
     end
-	Launcher.Game.SetPuckGravity(Launcher.Config.Number("puckgravity",2.5))
 end
 function Timeout()
 	Render = false

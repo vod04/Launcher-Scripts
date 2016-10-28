@@ -13,8 +13,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-CurrentTeam.CRC[0]=1163894643
-CurrentTeam.CRC[1]=-777928749
+CurrentTeam.TextureName[0]="UAD1"
+CurrentTeam.TextureName[1]="UAD3"
+CurrentTeam.TextureName[2]="UAD5"
+CurrentTeam.TextureName[3]="UAD6"
 
 CurrentTeam.Width = 256
 CurrentTeam.Height = 64

@@ -14,6 +14,7 @@
 --]]
 
 
+Launcher.Override.DisableScreenshot()
 Format = Launcher.Config.String("screenshotformat","bmp")
 
 function TickCallback()
@@ -37,7 +38,11 @@ function TickCallback()
             end
             Number = Number + 1
         end
-        Launcher.Surface.Save(Surface,Path..Filename)
+        if Launcher.Surface.Save(Surface,Path..Filename) then
+            Launcher.Log.Write("Screenshot saved to "..Filename)
+        else
+            Launcher.Log.Write("Unable to save screenshot")
+        end
 	end
 	
 end

@@ -115,6 +115,16 @@ D3DRS_BLENDOP                   = 171   -- D3DBLENDOP setting
 D3DRS_POSITIONORDER             = 172   -- NPatch position interpolation order. D3DORDER_LINEAR or D3DORDER_CUBIC (default)
 D3DRS_NORMALORDER               = 173   -- NPatch normal interpolation order. D3DORDER_LINEAR (default) or D3DORDER_QUADRATIC
 
+
+D3DTEXF_NONE            = 0
+D3DTEXF_POINT           = 1
+D3DTEXF_LINEAR          = 2
+D3DTEXF_ANISOTROPIC     = 3
+D3DTEXF_FLATCUBIC       = 4
+D3DTEXF_GAUSSIANCUBIC   = 5
+
+
+
 function ARGB(A, R, G, B)
 	return bit32.bor(bit32.lshift(bit32.band(math.floor(A),0xFF),24) , bit32.lshift(bit32.band(math.floor(R),0xFF),16) , bit32.lshift(bit32.band(math.floor(G) , 0xFF),8) , bit32.band(math.floor(B) , 0xFF))
 end

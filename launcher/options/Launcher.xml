@@ -18,12 +18,12 @@
 <options>
 	<Display>
 		<list name="resolution" title="Resolution" description="Set the in-game resolution"></list>
+        <boolean name="interfaceresolution" title="Interface Resolution" description="Set the interface resolution to the screen resolution? (Requires interface support)" default="0"></boolean>
 		<list name="screenmode" title="Screen Mode" description="Screen mode. Full screen window is suggested for newer systems" default="0">
 			<listitem value="1">Full Screen Exclusive</listitem>
 			<listitem value="2">Full Screen Window</listitem>
 			<listitem value="3">Windowed</listitem>
 		</list>
-        <boolean name="interfaceresolution" title="Interface Resolution" description="Set the interface resolution to the screen resolution? (Requires interface support)" default="0"></boolean>
 		<boolean name="vsync" title="V-Sync" description="Enable vertical synchronization (removes tearing)" default="0"></boolean>
 		<boolean name="triplebuffering" title="Triple Buffering" description="Enable triple buffering" default="0"></boolean>
 		<list name="antialiasing" title="Antialiasing" description="Smooths edges of objects" default="0">
@@ -40,6 +40,7 @@
 			<listitem value="8">8x</listitem>
 			<listitem value="16">16x</listitem>
 		</list>
+        <boolean name="selectivefiltering" title="Selective Filtering" description="Selectively applies anisotropic filtering where it is needed most" default="0" />
 		<input name="fov" title="FOV Modifier" description="Field of view modifier. Effectively zooms the camera." type="number" default="0" />
 		<input name="cutscenefovmin" title="Min Cutscene FOV Modifier" description="Sets the minimum FOV modifier for cutscenes" default="0"></input>
         <input name="cutscenefovmax" title="Max Cutscene FOV Modifier" description="Sets the maximum FOV modifier for cutscenes" default="0"></input>

@@ -19,7 +19,7 @@ Teams = {}
 Teams[27] = {}
 Teams[27].Frames = 720
 Teams[27].AnimationFPS = 23.976
-Teams[27].Texture = -213927182
+Teams[27].Texture = "VIDA"
 
 BASS_DX8_I3DL2REVERB_lRoom = 0
 BASS_DX8_I3DL2REVERB_lRoomHF = -100
@@ -53,7 +53,7 @@ function DeviceCreatedCallback()
 			Launcher.Sound.SetReverb(Stream,BASS_DX8_I3DL2REVERB_lRoom,BASS_DX8_I3DL2REVERB_lRoomHF,BASS_DX8_I3DL2REVERB_flRoomRolloffFactor,BASS_DX8_I3DL2REVERB_flDecayTime,BASS_DX8_I3DL2REVERB_flDecayHFRatio,BASS_DX8_I3DL2REVERB_lReflections,BASS_DX8_I3DL2REVERB_flReflectionsDelay,BASS_DX8_I3DL2REVERB_lReverb,BASS_DX8_I3DL2REVERB_flReverbDelay,BASS_DX8_I3DL2REVERB_flDiffusion,BASS_DX8_I3DL2REVERB_flDensity,BASS_DX8_I3DL2REVERB_flHFReference)
 		end
 		Frame = 0
-		Launcher.Texture.Inject(FrameTexture[Frame],0,Teams[Team].Texture)
+		Launcher.Texture.Inject(FrameTexture[Frame],Teams[Team].Texture)
 		Launcher.Callback.Register("Tick",TickCallback)
 	end
 end
@@ -66,7 +66,7 @@ function TickCallback()
 				Launcher.Sound.Stop(Stream)
 			end
 			Frame = 0
-			Launcher.Texture.Inject(FrameTexture[Frame],0,Teams[Team].Texture)
+			Launcher.Texture.Inject(FrameTexture[Frame],Teams[Team].Texture)
 		end
 	else 
 		if Launcher.Input.KeyPressed(VK_I) then
@@ -74,10 +74,10 @@ function TickCallback()
 			Frame = 0
 			if Stream ~= nil then
 				Launcher.Sound.Stop(Stream)
-				Launcher.Sound.SetVolume(Stream,Volume)
-				Launcher.Sound.Play(Stream,1)
 			end
-			Launcher.Texture.Inject(FrameTexture[Frame],0,Teams[Team].Texture)
+            Launcher.Sound.SetVolume(Stream,Volume)
+            Launcher.Sound.Play(Stream,1)
+			Launcher.Texture.Inject(FrameTexture[Frame],Teams[Team].Texture)
 			FPSTimer = Launcher.System.Time(2)
 		end
 
@@ -91,7 +91,7 @@ function TickCallback()
 				Frame = Teams[Team].Frames - 1
 				PlayVideo = 0
 			end
-			Launcher.Texture.Inject(FrameTexture[math.floor(Frame)],0,Teams[Team].Texture)
+			Launcher.Texture.Inject(FrameTexture[math.floor(Frame)],Teams[Team].Texture)
 		end
 	end
 end

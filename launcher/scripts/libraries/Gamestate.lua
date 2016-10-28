@@ -136,30 +136,7 @@ end
 Launcher.Game.ShotSpeed = function ()
 	return Launcher.Mem.String(0x79CABC)
 end
-Launcher.Player.FirstName = function (PlayerID)
-	local Address
-	local Team = 0
-	if PlayerID == -1 then
-		return nil
-	end
-	if PlayerID > 19 then
-		Team = 1
-	end
-	Address = 0x7A8808 + Team * 0x6A8 + 0x4C * PlayerID + 0x8
-	return Launcher.Mem.String(Address)
-end
-Launcher.Player.LastName = function (PlayerID)
-	local Address
-	local Team = 0
-	if PlayerID == -1 then
-		return nil
-	end
-	if PlayerID > 19 then
-		Team = 1
-	end
-	Address = 0x7A8808 + Team * 0x6A8 + 0x4C * PlayerID + 0x18
-	return Launcher.Mem.String(Address)
-end
+
 Launcher.Game.HomeLeague = function ()
     return Launcher.Mem.Byte(0x776c61)
 end
@@ -356,4 +333,16 @@ Launcher.Game.GetLanguage = function()
 end
 Launcher.Game.SetLanguage = function(LanguageID)
     Launcher.Mem.WriteByte(0x78d348,LanguageID)
+end
+Launcher.Game.ArenaName = function()
+    return Launcher.Mem.String(0x7A9554,34)
+end
+Launcher.Game.ArenaLocation = function()
+    return Launcher.Mem.String(0x7A9576,24)
+end
+Launcher.Game.ArenaCapacity = function()
+    return Launcher.Mem.Word(0x7A9590)
+end
+Launcher.Game.ArenaAttendance = function() --???
+    return Launcher.Mem.Word(0x7A959A)
 end
