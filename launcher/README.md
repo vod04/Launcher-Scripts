@@ -9,12 +9,6 @@ Reverse-engineering the game and developing this software is a very time-consumi
 
 http://z15.invisionfree.com/NHL04Rebuilt/index.php?showforum=19
 
-**Functions**
-
-Function Name | Description
------------- | -------------
-Launcher.Screen.Width() | Retrieve the screen width
-Launcher.Screen.Height() | Retrieve the screen Height
 
 
 
