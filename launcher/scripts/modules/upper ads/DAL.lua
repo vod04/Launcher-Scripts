@@ -20,8 +20,8 @@ CurrentTeam.TextureName[3]="UAD6"
 
 CurrentTeam.Width = 256
 CurrentTeam.Height = 64
-CurrentTeam.Color = RGBA(0,36,101,255)
-CurrentTeam.ShortName = "LEAFS"
+CurrentTeam.Color = RGBA(0,99,64,255)
+CurrentTeam.ShortName = "STARS"
 
 
 

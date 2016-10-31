@@ -21,7 +21,7 @@ CurrentTeam.TextureName[3]="UAD6"
 
 CurrentTeam.Width = 256
 CurrentTeam.Height = 64
-CurrentTeam.Color = RGBA(255,0,0,255)
+CurrentTeam.Color = RGBA(168,21,43,255)
 CurrentTeam.ShortName = "HABS"
 
 

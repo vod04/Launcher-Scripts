@@ -20,7 +20,7 @@ CurrentTeam.TextureName[3]="UAD6"
 
 CurrentTeam.Width = 256
 CurrentTeam.Height = 64
-CurrentTeam.Color = RGBA(255,128,40,255)
+CurrentTeam.Color = RGBA(252,81,20,255)
 CurrentTeam.ShortName = "DUCKS"
 
 
