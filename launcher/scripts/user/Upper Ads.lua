@@ -125,12 +125,12 @@ function DeviceCreatedCallback()
         for I=0, Count do CurrentTeam.TextureName[I]=nil end
     end
 
-    CurrentTeam.LogoSprite64 = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\logos\\"..HomeAbbreviation.."-64.png",0)
+    CurrentTeam.LogoSprite64 = Launcher.Sprite.Load("launcher\\media\\textures\\upper ads\\logos\\"..HomeAbbreviation.."-64.png",0)
     if CurrentTeam.LogoSprite64 == nil then
         return false
     end
 
-    CurrentTeam.LogoSprite256 = Launcher.Sprite.Load("launcher\\media\\textures\\shared\\logos\\"..HomeAbbreviation.."-256.png",0)
+    CurrentTeam.LogoSprite256 = Launcher.Sprite.Load("launcher\\media\\textures\\upper ads\\logos\\"..HomeAbbreviation.."-256.png",0)
     if CurrentTeam.LogoSprite256 == nil then
         return false
     end
