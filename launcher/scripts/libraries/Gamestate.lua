@@ -59,6 +59,11 @@ Launcher.Game.Paused = function ()
 		return false
 	end
 end
+Launcher.Game.StopPlay = function ()
+    local Address
+    Address = Launcher.Mem.Long(0x79CAB8)
+    Launcher.Mem.WriteByte(Address+7,1)
+end
 Launcher.Game.PlayStopped = function ()
 	if Launcher.Mem.Byte(0x79BA46) == 1 then
 		return true
@@ -112,20 +117,20 @@ Launcher.Game.AwayTeamID = function ()
 	return Launcher.Mem.Byte(0x7a8e04)
 end
 Launcher.Game.AwayFullName = function ()
-	return Launcher.Mem.String(0x7a8e14,28)
+	return Launcher.Mem.String(0x7a8e14)
 end
 Launcher.Game.AwayNameAbbreviation = function ()
-	return Launcher.Mem.String(0x7a8e30,3)
+	return Launcher.Mem.String(0x7a8e30)
 end
 
 Launcher.Game.HomeTeamID = function ()
 	return Launcher.Mem.Byte(0x7A875C)
 end
 Launcher.Game.HomeFullName = function ()
-	return Launcher.Mem.String(0x7a876c,28)
+	return Launcher.Mem.String(0x7a876c)
 end
 Launcher.Game.HomeNameAbbreviation = function ()
-	return Launcher.Mem.String(0x7a8788,3)
+	return Launcher.Mem.String(0x7a8788)
 end
 Launcher.Game.PlayerWithPuck = function ()
 	return Launcher.Mem.Byte(0x79BEF4)
@@ -136,7 +141,9 @@ end
 Launcher.Game.ShotSpeed = function ()
 	return Launcher.Mem.String(0x79CABC)
 end
-
+Launcher.Game.ControllerTeam = function(Controller)
+    return Launcher.Mem.Byte(0x7915c8+Controller)
+end
 Launcher.Game.HomeLeague = function ()
     return Launcher.Mem.Byte(0x776c61)
 end
@@ -251,10 +258,19 @@ Launcher.Game.Over = function()
     end
 end
 
-Launcher.Game.SetPenaltyTimer = function(PenaltyTimer)
-    if PenaltyTimer == nil then
-        return 0
+Launcher.Game.SetTimer = function(Timer)
+    local ASM
+    if Timer > 0 then
+        ASM = [[
+            pop esi
+            mov eax,]]..Timer..[[ 
+            ret
+            nop
+        ]]
+        Launcher.Mem.WriteASM(0x4a185f,ASM)    
     end
+end
+Launcher.Game.SetPenaltyTimer = function(PenaltyTimer)
     local ASM
     if PenaltyTimer == 0 then
         ASM = [[
@@ -281,9 +297,7 @@ Launcher.Game.SetPenaltyTimer = function(PenaltyTimer)
 end
 Launcher.Game.SetLastMinuteTimer = function(Timer)
     local ASM
-    if Timer == nil then
-        return 0
-    elseif Timer == 0 then
+    if Timer == 0 then
         Launcher.Mem.WriteByte(0x4a180b,99)
         return 1
     else
@@ -293,9 +307,7 @@ Launcher.Game.SetLastMinuteTimer = function(Timer)
 end
 Launcher.Game.SetOTTimer = function(OTTimer)
     local ASM, ASMPointer
-    if OTTimer == nil then
-        return 0
-    elseif OTTimer == 0 then
+    if OTTimer == 0 then
         ASM = [[
             nop 
             nop 
