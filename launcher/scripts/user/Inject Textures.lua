@@ -23,7 +23,7 @@ function Replace(Path)
 			if Filename ~= "." and Filename ~= ".." then
 				Name = string.sub(Filename,1,string.len(Filename)-4)
 				if string.len(Name) == 4 then
-					Tex = Launcher.Texture.Load("launcher\\media\\textures\\inject\\"..Filename)
+					Tex = Launcher.Texture.Load(Path..Filename)
 					if Tex ~= nil then
 						Launcher.Texture.Inject(Tex,Name)
 					end
@@ -36,8 +36,8 @@ function Replace(Path)
 end
 
 function DeviceCreatedCallback()
-	Replace("launcher\\media\\textures\\inject")
-    Replace("launcher\\media\\textures\\inject\\"..Launcher.Game.HomeNameAbbreviation())
+	Replace("launcher\\media\\textures\\inject\\")
+    Replace("launcher\\media\\textures\\inject\\"..Launcher.Game.HomeNameAbbreviation().."\\")
 end
 
 
