@@ -9,7 +9,7 @@ Screen.Height() | Retrieve the screen height | Number
 Screen.BeginScene() | Begin a D3D scene | Boolean
 Screen.EndScene() | End a D3D scene | Nil
 Screen.Present() | Render the D3D scene | Nil
-Screen.Clear(nColor) | Clear the current render target | Nil
+Screen.Clear(nColor) | Clear the current render target using the given color | Nil
 Screen.SetRenderState(nState, nValue) | Set D3D render state | Nil
 Screen.SetRenderTarget(nType, nRenderTarget) | Change the current render target. Type: 0 = Texture, 1 = Sprite. Render target is either a texture or sprite handle | Boolean
 Screen.SaveScreenshot(sPath) | Save a screenshot to the given path. | Nil
@@ -18,8 +18,8 @@ Screen.SaveScreenshot(sPath) | Save a screenshot to the given path. | Nil
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
-Window.MessageBox(sTitle, sMessage) | Display a windows message box | Nil
-Window.SelectBoolean(sTitle, sMessage) | Display a boolean message box | Boolean
+Window.MessageBox(sTitle, sMessage) | Display a windows message box (Not advised in fullscreen exclusive) | Nil
+Window.SelectBoolean(sTitle, sMessage) | Displays a boolean message box. This allows the user to select "yes" or "no". (Not advised in fullscreen exclusive) | Boolean
 Window.HasFocus() | Whether or not the game window has the focus | Boolean
 Window.ShowCursor() | Show the mouse cursor | Nil
 Window.HideCursor() | Hide the mouse cursor | Nil
