@@ -48,7 +48,7 @@ Sprite.Clip(iSpriteHandle,iX,iY,iWidth,iHeight) | Clip the drawing region of the
 Sprite.Scale(iSpriteHandle,nX,nY) | Scale the sprite using X and Y multiplier | Nil
 Sprite.Resize(iSpriteHandle,iWidth,iHeight) | Resize the sprite to the given width and height | Nil
 Sprite.Begin(iSpriteHandle) | If you plan on drawing a sprite multiple times, calling this function may improve performance | Nil
-Sprite.End(iSpriteHandle) | Must be called after calling Sprite.Begin() | nil
+Sprite.End(iSpriteHandle) | Must be called after calling Sprite.Begin() | Nil
 Sprite.Width(iSpriteHandle) | Return the width of the given sprite | Integer
 Sprite.Height(iSpriteHandle) | Return the height of the given sprite | Integer
 Sprite.Save(iSpriteHandle,sPath) | Save the loaded sprite to the filesystem |  Nil
@@ -56,7 +56,7 @@ Sprite.Release(iSpriteHandle) | Unload the sprite from memory. The sprite handle
 Sprite.SetTexture(iSpriteHandle,iTextureHandle)| Change the texture of the given sprite to the given texture | Nil
 Sprite.SetCenter(iSpriteHandle,nX,nY)| Set the rotation center of the given sprite | Nil
 
-**Sprite Library**
+**Texture Library**
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
