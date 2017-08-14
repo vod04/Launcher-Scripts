@@ -74,7 +74,7 @@ Texture.Save(iTextureHandle, sPath) | Save the loaded texture to the filesystem 
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
-Font.Load(sFamily, iSize, iWeight, bItalic, bUnderline,  bStrikeOut, bAntialiasing) | Loads a font and returns a font handle | iFontHandle
+Font.Load(sFamily, iSize, [iWeight, [bItalic, [bUnderline,  [bStrikeOut, [bAntialiasing]]]]]) | Loads a font and returns a font handle | iFontHandle
 Font.TextWidth(iFontHandle, sText) | Calculates the text width in pixels | Number
 Font.TextHeight(iFontHandle, sText) | Calculates the text width in pixels | Number
 Font.DrawText(iFontHandle, sText, iX, iY, iColor) | Draw the given text to the current render target | Nil
