@@ -60,7 +60,7 @@ Sprite.SetCenter(iSpriteHandle,nX,nY)| Set the rotation center of the given spri
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
-Texture.Load(sPath) | Load a D3D texture and returns a texture handle | iTextureHandle
+Texture.Load(sPath) | Loads a D3D texture and returns a texture handle | iTextureHandle
 Texture.Width(iTextureHandle) | Returns the width of the texture | Integer
 Texture.Height(iTextureHandle) | Returns the height of the texture | Integer
 Texture.Create(iWidth,iHeight,bRenderTarget) | Create a texture and return the texture handle. Set RenderTarget to true if you plan on using this texture as a render target | Integer
@@ -69,3 +69,16 @@ Texture.SetFilter(sFSHID,iFilter) | Set the Anisotropic filter of the given NHL 
 Texture.Release(iTextureHandle) | Unload the texture from memory. The texture handle will no longer be valid |  Nil
 Texture.Loaded(iTextureHandle) | Returns true if the texture is loaded, otherwise false | Boolean
 Texture.Save(iTextureHandle, sPath) | Save the loaded texture to the filesystem | Nil
+
+**Font Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Font.Load(sFamily, iSize, iWeight, bItalic, bUnderline,  bStrikeOut, bAntialiasing) | Loads a font and returns a font handle | iFontHandle
+Font.TextWidth(iFontHandle, sText) | Calculates the text width in pixels | Number
+Font.TextHeight(iFontHandle, sText) | Calculates the text width in pixels | Number
+Font.DrawText(iFontHandle, sText, iX, iY, iColor) | Draw the given text to the current render target | Nil
+Font.Release(iFontHandle) | Unloads the font from memory. The font handle will no longer be valid | Nil
+Font.Loaded(iFontHandle) | Returns true if the font is loaded, otherwise false | Boolean
+
+
