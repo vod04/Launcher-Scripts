@@ -82,7 +82,7 @@ Font.Release(iFontHandle) | Unloads the font from memory. The font handle will n
 Font.Loaded(iFontHandle) | Returns true if the font is loaded, otherwise false | Boolean
 Font.AddFile(sPath) | Loads an external font file using standard font formats | Boolean
 
-**Sound Library
+**Sound Library**
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
@@ -100,13 +100,14 @@ Sound.Seek(iSoundHandle, iSeconds) | Seek the sound playback to the given second
 Sound.Status(iSoundHandle) | Returns the current playback status | Integer
 Sound.Loaded(iSoundHandle) | Returns true if the sound is loaded, otherwise fale | Boolean
 
-**Log Library
+**Log Library**
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
 Log.Write(sString) | Write the string to the log file | Nil
 
-**Environment Variable Library
+**Environment Variable Library**
+
 Environment variables are variables that are persistant across all loaded scripts. They are referenced using a unique key.
 
 Function Name | Description | Return
