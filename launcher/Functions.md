@@ -113,6 +113,6 @@ Environment variables are variables that are persistant across all loaded script
 Function Name | Description | Return
 ------------------- | --------------------- | -------
 Env.SetString(sKey, sValue) | Set the environment variable defined by sKey to the given string value | Nil
-Env.String(sKey) | Retrieve the environment string value of the given key | Nil
+Env.String(sKey) | Retrieve the environment string value of the given key | String
 Env.SetNumber(sKey, nValue) | Set the environment variable defined by sKey to the given numerical value | Nil
-Env.Number(sKey, nValue) | Retrieve the environment numerical value of the given key | Nil
+Env.Number(sKey, nValue) | Retrieve the environment numerical value of the given key | Number
