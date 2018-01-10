@@ -80,5 +80,38 @@ Font.TextHeight(iFontHandle, sText) | Calculates the text width in pixels | Numb
 Font.DrawText(iFontHandle, sText, iX, iY, iColor) | Draw the given text to the current render target | Nil
 Font.Release(iFontHandle) | Unloads the font from memory. The font handle will no longer be valid | Nil
 Font.Loaded(iFontHandle) | Returns true if the font is loaded, otherwise false | Boolean
+Font.AddFile(sPath) | Loads an external font file using standard font formats | Boolean
 
+**Sound Library
 
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Sound.Load(sPath) | Loads a sound file and returns a sound handle | iSoundHandle
+Sound.Release(iSoundHandle) | Unload the sound from memory. The sound handle will no longer be valid | iSoundHandle
+Sound.Play(iSoundHandle) | Begin playback of the given sound | Nil
+Sound.Stop(iSoundHandle) | Stop playback of the given sound | Nil
+Sound.Pause(iSoundHandle) | Pause playback of the given sound | Nil
+Sound.FadeVolume(iSoundHandle, fVolume, iDuration) | Fade the volume of the sound to the given value for the given duration | Nil
+Sound.SetVolume(iSoundHandle, fVolume) | Set the volume of the sound | Nil
+Sound.Volume(iSoundHandle) | Returns the current volume of the sound | Number
+Sound.Length(iSoundHandle) | Returns the length in seconds of the sound | Integer
+Sound.Position(iSoundHandle) | Returns the current position in seconds of the sound | Integer
+Sound.Seek(iSoundHandle, iSeconds) | Seek the sound playback to the given seconds | Integer
+Sound.Status(iSoundHandle) | Returns the current playback status | Integer
+Sound.Loaded(iSoundHandle) | Returns true if the sound is loaded, otherwise fale | Boolean
+
+**Log Library
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Log.Write(sString) | Write the string to the log file | Nil
+
+**Environment Variable Library
+Environment variables are variables that are persistant across all loaded scripts. They are referenced using a unique key.
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Env.SetString(sKey, sValue) | Set the environment variable defined by sKey to the given string value | Nil
+Env.String(sKey) | Retrieve the environment string value of the given key | Nil
+Env.SetNumber(sKey, nValue) | Set the environment variable defined by sKey to the given numerical value | Nil
+Env.Number(sKey, nValue) | Retrieve the environment numerical value of the given key | Nil
