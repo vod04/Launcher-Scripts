@@ -116,3 +116,96 @@ Env.SetString(sKey, sValue) | Set the environment variable defined by sKey to th
 Env.String(sKey) | Retrieve the environment string value of the given key | String
 Env.SetNumber(sKey, nValue) | Set the environment variable defined by sKey to the given numerical value | Nil
 Env.Number(sKey, nValue) | Retrieve the environment numerical value of the given key | Number
+
+**Input Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Input.KeyDown(iKeyCode, bAsync) | Returns true if the given keyboard key or mouse button is currently down. If bAsync is true, it will work even if the window does not have focus | Boolean
+Input.KeyPressed(iKeyCode, bAsync) | Returns true if the given keyboard key or mouse button was pressed. If bAsync is true, it will work even if the window does not have focus | Boolean
+Input.CursorPosition() | Returns both the x and y coordinates of the mouse cursor within the game window. | Integer, Integer
+Input.CursorX() | Returns the x coordinate of the mouse cursor within the game window | Integer
+Input.CursorY() | Returns the y coordinate of the mouse cursor within the game window | Integer
+
+**XInput Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+XInput.BatteryLevel(iIndex, iType) | Returns the current battery level. Please refer to xinput.lua for the valid iType constants | Integer
+XInput.SetVibration(iIndex, iLeftVibration, iRightVibration) | Sets the left and right vibration of the controller. The range is 0-65530. You must manually set it to zero again to stop it.  | Nil
+XInput.KeyStroke(iIndex, iKeyCode) | Returns the keystroke value of the given key | Integer
+XInput.GetState(iIndex) | Under construction | Integer
+
+**Memory Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Mem.WriteByte(iByte, iAddress) | Write the byte to the given memory address of the game | Nil
+Mem.WriteShort(iShort, iAddress) | Write the short integer (2 bytes) to the given memory address of the game | Nil
+Mem.WriteLong(iLong, iAddress) | Write the long integer (4 bytes) to the given memory address of the game | Nil
+Mem.WriteLong(nFloat, iAddress) | Write the float (4 bytes) to the given memory address of the game | Nil
+Mem.WriteQuad(iQuad, iAddress) | Write the quad integer (8 bytes) to the given memory address of the game | Nil
+Mem.WriteDouble(nDouble, iAddress) | Write the double-precision float (8 bytes) to the given memory address of the game | Nil
+Mem.WriteString(sString, iAddress) | Write the string to the given memory address of the game | Nil
+Mem.Byte(iAddress) | Return the byte at the given memory address of the game | Integer
+Mem.Short(iAddress) | Return the short integer (2 bytes) at the given memory address of the game | Integer
+Mem.Long(iAddress) | Return the long integer (4 bytes) at the given memory address of the game | Integer
+Mem.Float(iAddress) | Return the float (4 bytes) at the given memory address of the game | Number
+Mem.Quad(iAddress) | Return the quad integer (8 bytes) at the given memory address of the game | Integer
+Mem.Double(iAddress) | Return the double precision float (8 bytes) at the given memory address of the game | Number
+Mem.String(iAddress) | Return the string at the given memory address of the game | String
+Mem.Bool(iAddress) | Returns false if the byte at the given memory address of the game is 0, otherwise true | Boolean
+Mem.Alloc(Size) | Allocates virtual memory and returns the address | iAddress
+Mem.AllocString(sString) | Allocates virtual memory, writes the given string, and then returns the address | iAddress
+Mem.Release(iAddress) | Releases the previously allocated virtual memory. The Address will no longer be valid | Nil
+Mem.AssembleString(sASMString) | Assembles the ASM code in sASMString, writes the machine code to executable memory and returns the address  | iAddress
+Mem.Copy(iAddress1, iAddress2, iLength) | Copies the memory contents of iAddress 1 to iAddress2 using the iLength parameter | Nil
+Mem.Call(iAddress) | Pushes the current instruction pointer to the stack and jumps to the given iAddress | Nil
+Mem.Size(iAddress) | Returns the size of the previously allocated memory | Integer
+
+**System Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+System.Time([Precision]) | Retreive the system time since boot. Precision is a value between 0 and 2. 0 uses ticks (Milliseconds), 1 uses media timer (Milliseconds), 2 uses high-resolution timer (Nanoseconds) | Nil
+System.SetClipboard(sText) | Set the clipboard text to the given string | nil
+System.Sleep(iMilliseconds) | Tell the CPU to sleep for the given milliseconds | nil
+System.DocsPath() | Returns the My Documents path associated with the running game | String
+
+**Config Library**
+
+This library is for reading values from Launcher.ini
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Launcher.Config.Int[eger](sKey, iDefault) | Returns the integer config value defined by sKey. If the key does not exist in launcher.ini, it will return iDefault | Integer
+Launcher.Config.Number(sKey, nDefault) | Returns the numerical config value defined by sKey. If the key does not exist in launcher.ini, it will return nDefault | Number
+Launcher.Config.String(sKey, sDefault) | Returns the string config value defined by sKey. If the key does not exist in launcher.ini, it will return sDefault | String
+Launcher.Config.Boolean(sKey, bDefault) | Returns the boolean config value defined by sKey (true|false, 0|1, yes|no). If the key does not exist in launcher.ini, it will return bDefault | Boolean
+Launcher.Config.Color(sKey, iDefault) | Returns a color config value defined by sKey. Supports #hex, rgb(), rgba(). If the key does not exist in launcher.ini, it will return nDefault | Integer
+
+
+**Timer Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Timer.SetInterval(iMilliseconds, fLuaFunction) | Repeatedly call the given Lua function every [iMilliseconds] | iTimerHandle
+Timer.SetTimeout(iMilliseconds, fLuaFunction) | Call the given Lua function once after iMilliseconds as elapsed | iTimerHandle
+Timer.Release(iTimerHandle) | Stop and release the given timer. The handle will no longer be valid | Nil
+
+**Filesystem**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Filesystem.DirectoryExists(sPath) | Returns true if the given directory exists, otherwise false | Boolean
+Filesystem.FileExists(sPath) | Returns true if the given file exists, otherwise false | Boolean
+Filesystem.FileSize(sPath) | Returns the file size of the given file | Integer
+Filesystem.FileExtension(sPath) | Returns the file extension of the given file | String
+Filesystem.CopyFile(sPath1, sPath2) | Copy the file at sPath1 to sPath2 | Nil
+Filesystem.SelectFile(bOpen, sTitle, sDefaultFile, sPattern) | Opens a file selection window. Returns the selected file. If bOpen is true, the file selector will be for opening a file, otherwise it's for saving a file. | String
+Filesystem.DeleteFile(sPath) | Permanently deletes the file at the given path. Use with caution | String
+Filesystem.EnumerateFiles(sPath, sPattern) | Begin enumerating files in the given path based on the given pattern and returns a directory handle | iFileEnumHandle
+Filesystem.EnumerateNextFile(iFileEnumHandle) | Enumerates to the next file. Returns false if there is no more files, otherwise true | Boolean
+Filesystem.EnumeratedFileName(iFileEnumHandle) | Returns the filename of the current enumerated file | String
+Filesystem.EnumeratedIsDirectory(iFileEnumHandle) | Returns true if the current enumerated object is a directory, false if it's a file | Boolean
+Filesystem.EnumeratedFilesFinish(iFileEnumHandle) | Finish file enumeration. The file enumeration handle will no longer be valid | Nil
