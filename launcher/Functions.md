@@ -193,7 +193,7 @@ Timer.SetInterval(iMilliseconds, fLuaFunction) | Repeatedly call the given Lua f
 Timer.SetTimeout(iMilliseconds, fLuaFunction) | Call the given Lua function once after iMilliseconds as elapsed | iTimerHandle
 Timer.Release(iTimerHandle) | Stop and release the given timer. The handle will no longer be valid | Nil
 
-**Filesystem**
+**Filesystem Library**
 
 Function Name | Description | Return
 ------------------- | --------------------- | -------
