@@ -30,7 +30,7 @@ Window.Update() | Update the game window | Nil
 Function Name | Description | Return
 ------------------- | --------------------- | -------
 Callback.Register(sCallbackEvent,fLuaFunction) | Create a callback and return a handle | iCallbackHandle
-Callback.Remove(inCallbackNameOrHandle) | Remove a callback | Nil
+Callback.Remove(isCallbackNameOrHandle) | Remove a callback | Nil
 Callback.Trigger(isCallbackNameOrHandle) | Trigger a callback | Nil
 Callback.Count(isCallbackNameOrHandle) | Count the number of active callbacks | Number
 Callback.Create(sCallbackName) | Create a new callback which you can trigger using Callback.Trigger() | 
@@ -209,3 +209,16 @@ Filesystem.EnumerateNextFile(iFileEnumHandle) | Enumerates to the next file. Ret
 Filesystem.EnumeratedFileName(iFileEnumHandle) | Returns the filename of the current enumerated file | String
 Filesystem.EnumeratedIsDirectory(iFileEnumHandle) | Returns true if the current enumerated object is a directory, false if it's a file | Boolean
 Filesystem.EnumeratedFilesFinish(iFileEnumHandle) | Finish file enumeration. The file enumeration handle will no longer be valid | Nil
+
+**Network Library**
+
+Function Name | Description | Return
+------------------- | --------------------- | -------
+Network.CreateServer(iPort, bUDP, iReceiveCallback, iConnectCallback, iDisconnectCallback) | Creates a network server on the given port and returns the handle | iNetServerHandle
+Network.Connect(sIP, iPort, bUDP) | Connect to the network server indicted by IP and port and returns the handle | iNetClientHandle
+Network.SendData(iNetHandle, iAddress, iLength) | Sends data to a client or server handle. Returns the number of bytes sent | Integer
+Network.SendString(iNetHandle, String) | Send string to a client or server handle. Returns the number of bytes sent | Integer
+Network.ClientIP(iClientHandle) | Returns the IP of a client | String
+Network.CloseServer(iServerHandle) | Disconnects the server and frees the associated resources | Nil
+Network.Disconnect(iNetHandle) | Disconnect a given network handle | Nil
+
